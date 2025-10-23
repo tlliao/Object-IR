@@ -26,24 +26,40 @@ The details of the dataset can be found in our paper. ([arXiv](https://arxiv.org
 The dataset can be available at [Google Drive](https://drive.google.com/drive/folders/16EDGrKOLLwcMseOjpI7bCrv_aP1MYVcz?usp=sharing) or [Baidu Cloud](https://pan.baidu.com/s/1TKQAQ9zryUuU4uzTiswfHg)(Extraction code: 1234).
 
 ## Code
-#### Requirement
+
+### Requirement
 We implement Object-IR with one GPU of RTX3090. Refer to [environment.yml](https://github.com/nie-lang/StabStitch/blob/main/environment.yml) for more details.
 
-#### Pre-trained model
+### Training
+
+#### Step 1: Download the pretrained VGG19 model
+Download [VGG-19](https://www.vlfeat.org/matconvnet/pretrained/#downloading-the-pre-trained-models). Search imagenet-vgg-verydeep-19 in this page and download imagenet-vgg-verydeep-19.mat. 
+
+#### Step 2: Train the network
+Modify the 'Codes/constant.py' to set the 'TRAIN_FOLDER'/'ITERATIONS'/'GPU'. In our experiment, we set 'ITERATIONS' to 100,000.
+
+```
+cd Codes/
+python train.py
+```
+
+### Pre-trained model
 The pre-trained models are available at [Google Drive](https://drive.google.com/drive/folders/1TuhQgD945MMnhmvnOwBS1LoLkYR1eetj?usp=sharing) or [Baidu Cloud](https://pan.baidu.com/s/1TTSbR4UYFL8f-nP3aGME7g) (extraction code: 1234). Please download them and put them in the 'model' folder.
 
-#### Test on the COCO dataset
+### Test on the COCO dataset
 Modify the test_path in Codes/test_online.py and run:
 ```
 python test_online.py
 ```
-Then, a folder named 'result' will be created automatically to store the stitched videos.
 
-About the TPS warping function, we set two modes to warp frames as follows:
-* 'FAST' mode: It uses F.grid_sample to implement interpolation. It's fast but may produce thin black boundaries.
-* 'NORMAL' mode: It uses our implemented interpolation function. It's a bit slower but avoid the black boundaries.
+### Test on arbitrary resolution images
+Modify the 'Codes_for_Arbitrary_Resolution/constant.py'to set the 'TEST_FOLDER'/'GPU'. The path for the checkpoint file can be modified in 'Codes_for_Arbitrary_Resolution/inference.py'. 
+Then, put the testing images into the folder 'Codes_for_Arbitrary_Resolution/other_dataset/' (including input and mask) and run:
 
-You can change the mode [here](https://github.com/nie-lang/StabStitch/blob/0c3665377e8bb76e062d5276cda72a7c7f0fab5b/Codes/test_online.py#L127).
+```
+cd Codes_for_Arbitrary_Resolution/
+python inference.py
+```
 
 
 #### Calculate the metrics on the StabStitch-D dataset
@@ -53,8 +69,8 @@ python test_metric.py
 ```
 
 
-## Meta
-If you have any questions about this project, please feel free to drop me an email.
+## Citation
+If you have any questions, please feel free to contact me.
 
 Tianli Liao -- tianli.liao@haut.edu.cn
 ```
