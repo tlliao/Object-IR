@@ -1,24 +1,18 @@
 ## Introduction
-This is the official implementation for [Object-IR](https://arxiv.org/abs/2403.06378) (PR2026).
+This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (PR2025).
 
 <p align="left">Tianli Liao<sup>1</sup>, Ran Wang<sup>1</sup>, Siqing Zhang<sup>1</sup>, Lei Li<sup>1</sup>, Guangen Liu<sup>1</sup>, Chenyang Zhao<sup>1</sup>, Heling Cao<sup>1</sup>, Peng Li<sup>2</sup></p>
 <p align="left"><sup>1</sup>College of Information Science and Engineering, Henan University of Technology</p>
 <p align="left"><sup>2</sup>Institute for Complexity Science, Henan University of Technology</p>
 
 
-> ### Feature
-> Nowadays, the videos captured from hand-held cameras are typically stable due to the advancements and widespread adoption of video stabilization in both hardware and software. Under such circumstances, we retarget video stitching to an emerging issue, warping shake, which describes the undesired content instability in non-overlapping regions especially when image stitching technology is directly applied to videos. To address it, we propose the first unsupervised online video stitching framework, named StabStitch, by generating stitching trajectories and smoothing them. 
-![image](https://github.com/nie-lang/StabStitch/blob/main/fig.png)
-The above figure shows the occurrence and elimination of warping shakes.
+> ### Pipeline
+> ![image](https://github.com/tlliao/Object-IR/Pipeline.png)
 
 
 ## 📝 Changelog
 
 - [x] 2024.03.11: The paper of the arXiv version is online.
-- [x] 2024.07.11: We have replaced the original arXiv version with the final camera-ready version.
-- [x] 2024.07.11: The StabStitch-D dataset is available.
-- [x] 2024.07.11: The inference code and pre-trained models are available.
-- [x] 2024.07.12: We add a simple analysis of the limitations and prospects.
 
 ## Dataset (COCO)
 The details of the dataset can be found in our paper. ([arXiv](https://arxiv.org/abs/2403.06378))
@@ -70,16 +64,17 @@ python test_metric.py
 
 
 ## Citation
-If you have any questions, please feel free to contact me.
+If you have any questions, please don't hesitate to contact me.
 
 Tianli Liao -- tianli.liao@haut.edu.cn
 ```
-@inproceedings{liao2026object-ir,
-  title={Object-IR: Leveraging Object Consistency and Mesh Deformation for Self-Supervised Image Retargeting},
-  author={Nie, Lang and Lin, Chunyu and Liao, Kang and Zhang, Yun and Liu, Shuaicheng and Ai, Rui and Zhao, Yao},
-  booktitle={European Conference on Computer Vision},
-  pages={390--407},
-  year={2024},
-  organization={Springer}
+@article{liao2025object-ir,
+title = {Object-IR: Leveraging Object Consistency and Mesh Deformation for Self-Supervised Image Retargeting},
+author = {Tianli Liao and Ran Wang and Siqing Zhang and Lei Li and Guangen Liu and Chenyang Zhao and Heling Cao and Peng Li},
+journal = {Pattern Recognition},
+pages = {112651},
+year = {2025},
+issn = {0031-3203},
+doi = {https://doi.org/10.1016/j.patcog.2025.112651},
 }
 ```
