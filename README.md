@@ -7,7 +7,8 @@ This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (
 
 
 > ### Pipeline
-> ![image](https://github.com/tlliao/Object-IR/Pipeline.png)
+> ![image](https://github.com/tlliao/Object-IR/blob/main/Object-IR.png)
+Given any aspect ratio, we construct a rigid mesh for the output resolution and estimate the grid's motion via a CNN-based regression network.
 
 
 ## 📝 Changelog
