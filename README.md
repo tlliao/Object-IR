@@ -11,19 +11,19 @@ This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (
 Given any aspect ratio, we construct a rigid mesh for the output resolution and estimate the grid's motion via a CNN-based regression network.
 
 
-## 📝 Changelog
+<!-- ## 📝 Changelog -->
 
-- [x] 2024.03.11: The paper of the arXiv version is online.
+<!-- - [x] 2025.03.11: The paper of the arXiv version is online. -->
 
 ## Dataset (COCO)
-The details of the dataset can be found in our paper. ([arXiv](https://arxiv.org/abs/2403.06378))
+The details of the dataset can be found in our paper. ([arXiv](https://arxiv.org/abs/xxx))
 
 The dataset can be available at [Google Drive](https://drive.google.com/drive/folders/16EDGrKOLLwcMseOjpI7bCrv_aP1MYVcz?usp=sharing) or [Baidu Cloud](https://pan.baidu.com/s/1TKQAQ9zryUuU4uzTiswfHg)(Extraction code: 1234).
 
 ## Code
 
 ### Requirement
-We implement Object-IR with one GPU of RTX3090. Refer to [environment.yml](https://github.com/nie-lang/StabStitch/blob/main/environment.yml) for more details.
+We implement Object-IR with one GPU of RTX3090. Refer to [environment.yml](https://github.com/tlliao/Object-IR/blob/main/requirements.txt) for more details.
 
 ### Training
 
