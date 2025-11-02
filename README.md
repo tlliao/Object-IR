@@ -11,18 +11,20 @@ This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (
 Given any aspect ratio, we construct a rigid mesh for the output resolution and estimate the grid's motion via a CNN-based regression network.
 
 
-<!-- ## 📝 Changelog -->
+<!-- ## 📝 Changelog 
 
-<!-- - [x] 2025.03.11: The paper of the arXiv version is online. -->
+- [x] 2025.03.11: The paper of the arXiv version is online. -->
 
-## Dataset (COCO)
+<!-- ## Dataset (COCO)
 The details of the dataset can be found in our paper. ([arXiv](https://arxiv.org/abs/xxx))
 
-The dataset can be available at [Google Drive](https://drive.google.com/drive/folders/16EDGrKOLLwcMseOjpI7bCrv_aP1MYVcz?usp=sharing) or [Baidu Cloud](https://pan.baidu.com/s/1TKQAQ9zryUuU4uzTiswfHg) (Extraction code: 1234).
+The dataset can be available at [Google Drive]() or [Baidu Cloud]() (Extraction code: xxxx). -->
 
 ## Code
 
-### Requirement
+The source code will be available in mid-November.
+
+<!-- ### Requirement
 We implement Object-IR with one GPU of RTX3090. Refer to [requirements.txt](https://github.com/tlliao/Object-IR/blob/main/requirements.txt) for more details.
 
 ### Training
@@ -39,29 +41,19 @@ python train.py
 ```
 
 ### Pre-trained model
-The pre-trained models are available at [Google Drive](https://drive.google.com/drive/folders/1TuhQgD945MMnhmvnOwBS1LoLkYR1eetj?usp=sharing) or [Baidu Cloud](https://pan.baidu.com/s/1TTSbR4UYFL8f-nP3aGME7g) (extraction code: 1234). Please download them and put them in the 'model' folder.
+The pre-trained models are available at [Google Drive]() or [Baidu Cloud]() (extraction code: xxxx). Please download them and put them in the 'model' folder.
 
-### Test on the COCO dataset
-Modify the test_path in Codes/test_online.py and run:
+### Test on image dataset
+Modify the test_path in Codes/test.py and run:
 ```
-python test_online.py
-```
-
-### Test on arbitrary resolution images
-Modify the 'Codes_for_Arbitrary_Resolution/constant.py'to set the 'TEST_FOLDER'/'GPU'. The path for the checkpoint file can be modified in 'Codes_for_Arbitrary_Resolution/inference.py'. 
-Then, put the testing images into the folder 'Codes_for_Arbitrary_Resolution/other_dataset/' (including input and mask) and run:
-
-```
-cd Codes_for_Arbitrary_Resolution/
-python inference.py
+python test.py
 ```
 
-
-#### Calculate the metrics on the StabStitch-D dataset
+#### Calculate the metrics
 Modify the test_path in Codes/test_metric.py and run:
 ```
 python test_metric.py
-```
+``` -->
 
 
 ## Citation
