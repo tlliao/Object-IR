@@ -69,13 +69,12 @@ If you have any questions, please don't hesitate to contact me.
 
 Tianli Liao -- tianli.liao@haut.edu.cn
 ```
-@article{liao2025object-ir,
-title = {Object-IR: Leveraging Object Consistency and Mesh Deformation for Self-Supervised Image Retargeting},
+@article{liao2026object-ir,
+title = {Object-IR: Leveraging object consistency and mesh deformation for self-supervised image retargeting},
 author = {Tianli Liao and Ran Wang and Siqing Zhang and Lei Li and Guangen Liu and Chenyang Zhao and Heling Cao and Peng Li},
 journal = {Pattern Recognition},
+volume = {172},
 pages = {112651},
-year = {2025},
-issn = {0031-3203},
-doi = {https://doi.org/10.1016/j.patcog.2025.112651},
+year = {2026},
 }
 ```
