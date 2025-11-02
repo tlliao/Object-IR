@@ -1,5 +1,5 @@
 ## Introduction
-This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (PR2025).
+This is the official implementation for [Object-IR](https://arxiv.org/abs/xxx) (PR2026).
 
 <p align="left">Tianli Liao<sup>1</sup>, Ran Wang<sup>1</sup>, Siqing Zhang<sup>1</sup>, Lei Li<sup>1</sup>, Guangen Liu<sup>1</sup>, Chenyang Zhao<sup>1</sup>, Heling Cao<sup>1</sup>, Peng Li<sup>2</sup></p>
 <p align="left"><sup>1</sup>College of Information Science and Engineering, Henan University of Technology</p>
