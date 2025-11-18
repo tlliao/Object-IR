@@ -22,7 +22,7 @@ The dataset can be available at [Google Drive]() or [Baidu Cloud]() (Extraction 
 
 ## Code
 
-The source code will be available in mid-November.
+The source code will be available in mid-December.
 
 <!-- ### Requirement
 We implement Object-IR with one GPU of RTX3090. Refer to [requirements.txt](https://github.com/tlliao/Object-IR/blob/main/requirements.txt) for more details.
