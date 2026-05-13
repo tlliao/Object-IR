@@ -15,6 +15,11 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 resize_224 = T.Resize((224,224))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_YOLO_PATH = os.environ.get(
+    "OBJECT_IR_YOLO_PATH",
+    os.path.join(SCRIPT_DIR, "yolo11n.pt"),
+)
 
 grid_w = predefine.GRID_W
 grid_h = predefine.GRID_H
@@ -331,7 +336,7 @@ def c_l(input_tensor, warp_image, rigid_mesh, mesh):
     input_tensor = (input_tensor + 1) / 2  
     warp_image = (warp_image + 1) / 2 
     
-    model_yolo = YOLO('/mnt/wangr/Object-IR/Codes/yolo11n.pt')
+    model_yolo = YOLO(DEFAULT_YOLO_PATH)
     results_img = model_yolo.predict(input_256,verbose=False)
 
     para_w = torch.sqrt(torch.tensor(r_w))   
@@ -426,4 +431,3 @@ def b_loss(warp_image, mesh, rigid_mesh, motion):
     b_loss = loss_tb_y + loss_tb_x + loss_lr_x + loss_lr_y 
   
     return b_loss
-

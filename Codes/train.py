@@ -11,17 +11,24 @@ import os
 from network import get_rigid_mesh,get_norm_mesh
 from torch.autograd import gradcheck
 import time
-last_path = os.path.abspath(os.path.join(os.path.dirname("__file__"), os.path.pardir))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir))
 # path to save the summary files
-SUMMARY_DIR = os.path.join(last_path, 'summary')
+SUMMARY_DIR = os.path.join(PROJECT_DIR, 'summary')
 writer = SummaryWriter(log_dir=SUMMARY_DIR)
 # path to save the model files
-MODEL_DIR = os.path.join(last_path, 'model')
+MODEL_DIR = os.path.join(PROJECT_DIR, 'model')
 # create folders if it dose not exist
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 if not os.path.exists(SUMMARY_DIR):
     os.makedirs(SUMMARY_DIR)
+
+
+def resolve_path(path):
+    if os.path.isabs(path):
+        return path
+    return os.path.abspath(os.path.join(PROJECT_DIR, path))
 
 
 def train(args):
@@ -30,7 +37,8 @@ def train(args):
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     batch_size=args.batch_size
     # define dataset
-    train_data = TrainDataset(data_path=args.train_path)
+    train_path = resolve_path(args.train_path)
+    train_data = TrainDataset(data_path=train_path)
     train_loader = DataLoader(dataset=train_data, batch_size=batch_size, num_workers=6, shuffle=True, drop_last=True)
     
     # define the network
@@ -174,11 +182,10 @@ if __name__=="__main__":
     parser.add_argument('--gpu', type=str, default='0')
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--max_epoch', type=int, default=50)
-    parser.add_argument('--train_path', type=str, default='Object-IR/Data/train')
+    parser.add_argument('--train_path', type=str, default='Data/train')
     # parse the arguments
     args = parser.parse_args()
     print(args)
 
     # train
     train(args)
-

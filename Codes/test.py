@@ -15,10 +15,16 @@ from vgg import VGG19
 vgg = VGG19()
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-last_path = os.path.abspath(os.path.join(os.path.dirname("__file__"), os.path.pardir))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir))
 
 
-model_yolo = YOLO('/mnt/wangr/Object-IR/Codes/yolo11n.pt')
+def resolve_path(path):
+    if os.path.isabs(path):
+        return path
+    return os.path.abspath(os.path.join(PROJECT_DIR, path))
+
+
 def draw_box(img, boxes, color_dict, save_path):
     for i, box in enumerate(boxes):
         x1, y1, x2, y2 = map(int, box)
@@ -29,13 +35,11 @@ def draw_box(img, boxes, color_dict, save_path):
 
 
 
-def distoration_loss(input_tensor, output_tensor):
+def distoration_loss(input_tensor, output_tensor, model_yolo):
     
     input_tensor = (input_tensor + 1) / 2
     output_tensor = (output_tensor + 1) / 2
 
-
-    model_yolo = YOLO('/mnt/wangr/Object-IR/Codes/yolo11n.pt')
     results_img1 = model_yolo.predict(input_tensor, verbose=False)
     results_img2 = model_yolo.predict(output_tensor, verbose=False)
 
@@ -130,7 +134,10 @@ def test(args):
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
     # dataset
-    test_data = TestDataset(data_path=args.test_path, ratio=args.ratio)
+    test_path = resolve_path(args.test_path)
+    yolo_path = resolve_path(args.yolo_path)
+    model_yolo = YOLO(yolo_path)
+    test_data = TestDataset(data_path=test_path, ratio=args.ratio)
     test_loader = DataLoader(dataset=test_data, batch_size=args.batch_size, num_workers=1, shuffle=False, drop_last=False)
 
     print("##################start testing#######################")
@@ -146,7 +153,7 @@ def test(args):
             input_tensor = input_tensor.cuda()
             output_tensor = output_tensor.cuda()
 
-            dis = distoration_loss(input_tensor, output_tensor)
+            dis = distoration_loss(input_tensor, output_tensor, model_yolo)
             
             if(dis != 0):
                 print('i = {}, distoration_erro = {:.6f}'.format(i+1, dis))
@@ -173,7 +180,8 @@ if __name__=="__main__":
     parser.add_argument('--gpu', type=str, default='0')
     parser.add_argument('--batch_size', type=int, default=1)
     parser.add_argument('--ratio', type=float, default=0.5)
-    parser.add_argument('--test_path', type=str, default='/mnt/wangr/Object-IR')
+    parser.add_argument('--test_path', type=str, default='Data/test')
+    parser.add_argument('--yolo_path', type=str, default='Codes/yolo11n.pt')
     print('<==================== Loading data ===================>\n')
 
     args = parser.parse_args()

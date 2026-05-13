@@ -8,6 +8,21 @@ import random
 import torch.nn.functional as F
 
 
+def _basename(path):
+    return os.path.basename(os.path.normpath(path))
+
+
+def _require_images(datas, key, root_path):
+    if key not in datas:
+        raise FileNotFoundError(
+            f"Expected '{key}' folder under {root_path}, but it was not found."
+        )
+    if len(datas[key]['image']) == 0:
+        raise FileNotFoundError(
+            f"No images found in {datas[key]['path']}."
+        )
+
+
 class TrainDataset(Dataset):
     def __init__(self, data_path):
 
@@ -19,12 +34,13 @@ class TrainDataset(Dataset):
         
         datas = glob.glob(os.path.join(self.train_path, '*'))
         for data in sorted(datas):
-            data_name = data.split('/')[-1]
+            data_name = _basename(data)
             if data_name == 'input':
                 self.datas[data_name] = {}
                 self.datas[data_name]['path'] = data
                 self.datas[data_name]['image'] = glob.glob(os.path.join(data, '*.jpg'))
                 self.datas[data_name]['image'].sort()
+        _require_images(self.datas, 'input', self.train_path)
        
 
     def __getitem__(self, index):
@@ -56,12 +72,20 @@ class TestDataset(Dataset):
         
         datas = glob.glob(os.path.join(self.train_path, '*'))
         for data in sorted(datas):
-            data_name = data.split('/')[-1]
+            data_name = _basename(data)
             if data_name == 'input' or data_name == 'output':
                 self.datas[data_name] = {}
                 self.datas[data_name]['path'] = data
                 self.datas[data_name]['image'] = glob.glob(os.path.join(data, '*.jpg'))
                 self.datas[data_name]['image'].sort()
+        _require_images(self.datas, 'input', self.train_path)
+        _require_images(self.datas, 'output', self.train_path)
+        if len(self.datas['input']['image']) != len(self.datas['output']['image']):
+            raise ValueError(
+                "Input/output image counts do not match: "
+                f"{len(self.datas['input']['image'])} input images vs "
+                f"{len(self.datas['output']['image'])} output images under {self.train_path}."
+            )
        
     def __getitem__(self, index):
         # Load image
@@ -90,11 +114,6 @@ class TestDataset(Dataset):
     
     def __len__(self):
         return len(self.datas['input']['image'])
-       
-
-    def __len__(self):
-
-        return len(self.datas['input']['image'])
 
 class OutDataset(Dataset):
     def __init__(self, data_path):
@@ -105,12 +124,13 @@ class OutDataset(Dataset):
         
         datas = glob.glob(os.path.join(self.test_path, '*'))
         for data in sorted(datas):
-            data_name = data.split('/')[-1]
+            data_name = _basename(data)
             if data_name == 'input':
                 self.datas[data_name] = {}
                 self.datas[data_name]['path'] = data
                 self.datas[data_name]['image'] = glob.glob(os.path.join(data, '*.[jp][pn]g'))
                 self.datas[data_name]['image'].sort()
+        _require_images(self.datas, 'input', self.test_path)
         #print(self.datas.keys())
 
     def __getitem__(self, index):
@@ -131,7 +151,8 @@ class OutDataset(Dataset):
 
 
 def main():
-    data_path = "/mnt/wangr/Date/train"  
+    project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+    data_path = os.path.join(project_dir, "Data", "train")
     dataset = TrainDataset(data_path)
 
     print(f"Total images in dataset: {len(dataset)}")
